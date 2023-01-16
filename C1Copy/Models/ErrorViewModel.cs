@@ -1,8 +1,9 @@
-namespace C1Copy.Models;
-
-public class ErrorViewModel
+namespace C1Copy.Models
 {
-    public string? RequestId { get; set; }
+    public class ErrorViewModel
+    {
+        public string RequestId { get; set; }
 
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
 }
