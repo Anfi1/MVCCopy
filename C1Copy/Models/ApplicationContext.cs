@@ -9,7 +9,7 @@ public class ApplicationContext : DbContext
 
     public ApplicationContext()
     {
-        Database.EnsureDeleted();
+        
         Database.EnsureCreated();
     }
 
@@ -32,7 +32,7 @@ public class ApplicationContext : DbContext
             us
         );
         modelBuilder.Entity<Account>().HasData(
-            new Account{ID = 1, Email = "asd",Password = "123",RoleID = 2},
+            new Account{ID = 1,Email = "asd",Password = "123",RoleID = 2},
             new Account{ID = 2,Email = "theanfishow@gmail.com",Password = "123",RoleID = 1}
         );
 

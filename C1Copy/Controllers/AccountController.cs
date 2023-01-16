@@ -61,28 +61,22 @@ namespace C1Copy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            Account account = await db.Accounts.FirstOrDefaultAsync(u => u.Email == model.Email);
-            if (account == null)
+            if (ModelState.IsValid)
             {
-                if (model.Email == null || model.Password == null)
+                Account user = await db.Accounts.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (user == null)
                 {
-                    ModelState.AddModelError("Email", "Некорректные логин и(или) пароль");
-                }
-                else
-                {
+                    var acc = new Account { Email = model.Email, Password = model.Password, RoleID = 2};
                     // добавляем пользователя в бд
-                    Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
-                    
-                    account = new Account{ Email = model.Email,Password = model.Password,RoleID = userRole.RoleID,};
-                    
-                    db.Accounts.Add(account);
+                    db.Accounts.Add(acc);
                     await db.SaveChangesAsync();
  
-                    await Authenticate(account); // аутентификация
+                    await Authenticate(acc); // аутентификация
  
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
             return View(model);
         }
@@ -92,7 +86,7 @@ namespace C1Copy.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "user")
             };
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки

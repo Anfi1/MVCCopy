@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using C1Copy.Models;
 
-namespace TestPages3.Controllers
+namespace C1Copy.Controllers
 {
     public class HomeController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
         private readonly ILogger<HomeController> _logger;
         
-        public HomeController(ILogger<HomeController> logger, UpTimeServiceSeconds timeService)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }

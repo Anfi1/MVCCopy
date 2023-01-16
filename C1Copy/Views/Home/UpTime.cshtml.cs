@@ -1,8 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TestPages3.Controllers;
+using C1Copy.Controllers;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace TestPages3.Views.Home
+namespace C1Copy.Views.Home
 {
     public class UpTime : PageModel
     {
