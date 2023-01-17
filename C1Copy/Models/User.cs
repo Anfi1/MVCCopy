@@ -7,4 +7,10 @@ namespace C1Copy.Models
         public int Age { get; set; }
         public string PhoneNumber { get; set; }
     }
+
+    public class UserModel
+    {
+        public IEnumerable<User> Users;
+        public User User;
+    }
 }

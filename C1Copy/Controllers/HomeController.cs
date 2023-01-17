@@ -18,7 +18,9 @@ namespace C1Copy.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await db.Users.ToListAsync());
+            UserModel model = new UserModel();
+            model.Users = await db.Users.ToListAsync();
+            return View(model);
         }
         public IActionResult Create()
         {

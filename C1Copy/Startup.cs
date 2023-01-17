@@ -30,7 +30,7 @@ namespace TestPages3
                 .AddCookie(options => options.LoginPath = "/Account/Login");
             services.AddAuthorization();
             services.AddScoped<ApplicationContext>();
-            
+
             services.AddControllersWithViews();
             
             //Сервис времени существования

@@ -1,6 +1,18 @@
 @{
-    ViewData["Title"] = "О сайте";
+    ViewData["Title"] = "Базы Данных";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Информация всякая</p>
+<!-- openModal - id модального окна (элемента div) -->
+<div id="openModal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Название</h3>
+        <a href="#close" title="Close" class="close">×</a>
+      </div>
+      <div class="modal-body">    
+        <p>Содержимое модального окна...</p>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="#openModal">Открыть модальное окно</a>
