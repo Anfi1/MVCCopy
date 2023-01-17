@@ -34,9 +34,18 @@ namespace C1Copy.Controllers
                 return RedirectToAction("Index");
             }
 
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                db.Users.Add(user);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(user);
+            }
+
+            
         }
         public IActionResult Privacy()
         {

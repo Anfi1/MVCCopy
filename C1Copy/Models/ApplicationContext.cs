@@ -6,10 +6,10 @@ public class ApplicationContext : DbContext
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<Client> Clients { get; set; }
 
     public ApplicationContext()
     {
-        
         Database.EnsureCreated();
     }
 
@@ -34,6 +34,10 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<Account>().HasData(
             new Account{ID = 1,Email = "asd",Password = "123",RoleID = 2},
             new Account{ID = 2,Email = "theanfishow@gmail.com",Password = "123",RoleID = 1}
+        );
+        modelBuilder.Entity<Client>().HasData(
+            new Client{ID = 1,Name = "asd"},
+            new Client{ID = 2,Name = "dsadasd"}
         );
 
     }
