@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/C1Copy.styles.css" asp-append-version="true"/>
 </head>
 <body>
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -44,9 +47,42 @@
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
-                        </li>
+                        <!-- Кнопка-триггер модального окна -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                            Войти
+                        </button>
+                        <!-- Модальное окно -->
+                        <div class="modal fade" id="LoginModal" tabindex="0" aria-labelledby="LoginModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a asp-action="Register" asp-controller="Account">Регистрация</a>
+                                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                                        {
+                                            <div>
+                                                <label>Введите Email</label>
+                                                <input type="text" name="Email" id="Email"/>
+                                            </div>
+                                            <div>
+                                                <label >Введите Пароль</label>
+                                                <input type="text" name="Password" id="Password"/>
+                                            </div>
+                                            <input type="submit" value="Войти" class="btn btn-outline-dark"/>
+                                        }
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <div>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
                         </li>
@@ -56,6 +92,7 @@
         </div>
     </nav>
 </header>
+
 <div class="container">
     <main role="main" class="pb-3">
         @RenderBody()
@@ -70,6 +107,8 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+
 @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

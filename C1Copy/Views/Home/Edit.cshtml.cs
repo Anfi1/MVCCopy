@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TestPages3.Views.Home
+namespace C1Copy.Views.Home
 {
     public class Edit : PageModel
     {

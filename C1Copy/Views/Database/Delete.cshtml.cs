@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace C1Copy.Views.Home
+namespace C1Copy.Views.Database
 {
-    public class Details : PageModel
+    public class Delete : PageModel
     {
         public void OnGet()
         {

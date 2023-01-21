@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using C1Copy.ViewModels;
 
 namespace C1Copy.Models
 {
@@ -27,15 +28,9 @@ namespace C1Copy.Models
     {
         public IEnumerable<User> Users;
         public User User;
-        [Required(ErrorMessage ="Не указан Email")]
-        public string Email { get; set; }
-
-        [Required(ErrorMessage = "Не указан пароль")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-         
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Пароль введен неверно")]
-        public string ConfirmPassword { get; set; }
+        
+        public LoginModel loginModel;
+        public RegisterModel registerModel;
+        public Account Account;
     }
 }

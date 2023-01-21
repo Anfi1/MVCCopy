@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TestPages3.Views.Database;
+namespace C1Copy.Views.Database;
 
 public class Index : PageModel
 {

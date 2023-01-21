@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Все пользователи";
 }
+
 <!-- Кнопка-триггер модального окна -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddModal">
     Добавить пользователя
@@ -42,12 +43,13 @@
         </div>
     </div>
 </div>
+
 <br></br>
 <table class="table" id="table">
     @if (!User.Identity.IsAuthenticated)
     {
         <tr>
-            <td>ID</td><td>Имя</td>
+            <td>ID</td><td>Имя</td><td></td>
         </tr>
         @foreach (var item in Model.Users)
         {
@@ -56,7 +58,7 @@
                     <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id" style='color: #212529;font-size: 18px'>@item.Id</a>
                 </td>
                 <td>
-                    <p style="font-size: 18px">@item.Name</p>
+                    @item.Name
                 </td>
                 <td>
                     <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id">Подробнее</a>
@@ -77,7 +79,7 @@
                     <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id" style='color: #212529;font-size: 18px'>@item.Id</a>
                 </td>
                 <td>
-                    <p style="font-size: 18px">@item.Name</p>
+                    @item.Name
                 </td>
                 <td>
                     <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id">Подробнее</a> |
@@ -89,8 +91,10 @@
             </tr>
         }
     }
+</table>
 
-    <style>
+
+<style>
 #table {
 	border: 1px solid #dddddd;
 	width: 100%;
@@ -119,5 +123,13 @@
 	background: #F7F7F7;
 }
 .otsup{position: relative;margin-bottom: 5px; bottom: -10px}
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+}
+
 </style>
-</table>

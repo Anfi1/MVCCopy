@@ -34,7 +34,7 @@ namespace C1Copy.Controllers
         {
             return View();
         }
-        [HttpPost]
+        /*[HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -50,6 +50,24 @@ namespace C1Copy.Controllers
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
+            return View(model);
+        }*/
+        [HttpPost]
+        public async Task<IActionResult> Login(string Email, string Password)
+        {
+            LoginModel model = new LoginModel();
+            model.Email = Email;
+            model.Password = Password;
+            Account account = await db.Accounts
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+            if (account != null)
+            {
+                await Authenticate(account); // аутентификация
+ 
+                return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             return View(model);
         }
         [HttpGet]
@@ -86,7 +104,7 @@ namespace C1Copy.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "user")
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
