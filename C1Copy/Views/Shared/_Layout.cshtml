@@ -59,27 +59,26 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <a asp-action="Register" asp-controller="Account">Регистрация</a>
-                                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-                                        {
+                                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                                    {
+                                        <div class="modal-body">
+                                            <a asp-action="Register" asp-controller="Account">Регистрация</a>
                                             <div>
                                                 <label>Введите Email</label>
                                                 <input type="text" name="Email" id="Email"/>
                                             </div>
                                             <div>
                                                 <label >Введите Пароль</label>
-                                                <input type="text" name="Password" id="Password"/>
+                                                <input type="password" name="Password" id="Password"/>
                                             </div>
-                                            <input type="submit" value="Войти" class="btn btn-outline-dark"/>
-                                        }
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <div>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                                         </div>
-                                    </div>
+                                        <div class="modal-footer">
+                                            <div>
+                                                <input type="submit" value="Войти" class="btn btn-outline-dark"/>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -1,16 +1,23 @@
-@model ClientModel
+@model Client
 @{
-    ViewBag.Title = Model.Client.Name;
+    ViewBag.Title = Model.Name;
 }
-<h2>Пользователь @Model.Client.Name</h2>
+<h2>Пользователь @Model.Name</h2>
 <div>
     <dl class="dl-horizontal">
         <dt>Идентификатор</dt>
-        <dd>@Model.Client.ID</dd>
+        <dd>@Model.ID</dd>
  
         <dt>Имя</dt>
-        <dd>@Model.Client.Name</dd>
-
+        <dd>@Model.Name</dd>
+        
+        <dt>Юр Лицо</dt>
+        <dd>@Model.LegalEntitie.Name</dd>
+        @foreach (var item in Model.Offices)
+        {
+            <dt>Адрес Офиса</dt>
+            <dd>@item.Adress</dd>
+        }
     </dl>
     <form asp-controller="Database" asp-action="Details" method="post">
         <div class="form-group">

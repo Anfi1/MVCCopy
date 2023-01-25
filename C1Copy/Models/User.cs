@@ -12,18 +12,6 @@ namespace C1Copy.Models
         public string PhoneNumber { get; set; }
     }
 
-    public class Client
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class ClientModel
-    {
-        public Client Client { get; set; }
-        public IEnumerable<Client> Clients { get; set; }
-    }
-
     public class UserModel
     {
         public IEnumerable<User> Users;

@@ -1,4 +1,4 @@
-@model ClientModel
+@model IEnumerable<Client>
 @{
     ViewBag.Title = "Все пользователи";
 }
@@ -50,7 +50,7 @@
                 <tr>
                     <td>ID</td><td>Имя</td><td></td>
                 </tr>
-                @foreach (var item in Model.Clients)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -71,7 +71,7 @@
                 <tr>
                     <td>ID</td><td>Имя</td><td>Кнопочки</td>
                 </tr>
-                @foreach (var item in Model.Clients)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
