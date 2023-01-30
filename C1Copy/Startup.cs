@@ -52,7 +52,7 @@ namespace TestPages3
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Database}/{action=Index}/{id?}");
             });
         }
     }

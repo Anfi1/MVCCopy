@@ -36,20 +36,22 @@
     </div>
 </div>
 <nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist" >
-    <button style="color: #212529;" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-    <button style="color: #212529;" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-    <button style="color: #212529;" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-  </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button style="color: #212529;" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+        <button style="color: #212529;" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+        <button style="color: #212529;" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+    </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role=" tabpanel" aria-labelledby="nav-home-tab">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <table class="table" id="table">
             @if (!User.Identity.IsAuthenticated)
             {
+                <thead>
                 <tr>
-                    <td>ID</td><td>Имя</td><td></td>
+                    <th>ID</th><th>Имя</th><th></th>
                 </tr>
+                </thead>
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -68,16 +70,20 @@
             }
             else
             {
+                <thead>
                 <tr>
-                    <td>ID</td><td>Имя</td><td>Кнопочки</td>
+                    <th>ID</th><th>Имя</th><th>Кнопочки</th>
                 </tr>
+                </thead>
+
+                <tbody id="ClientBody">
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>
                             <a asp-action="Details" asp-controller="Database" asp-route-id="@item.ID" style='color: #212529;font-size: 18px'>@item.ID</a>
                         </td>
-                        <td>
+                        <td value="@item.ID">
                             @item.Name
                         </td>
                         <td>
@@ -89,6 +95,7 @@
 
                     </tr>
                 }
+            </tbody>
             }
         </table>
     </div>
@@ -96,7 +103,7 @@
     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>
 
-
+<script src="~/js/TableManagement.js" asp-append-version="true"></script>
 <style>
 #table {
 	border: 1px solid #dddddd;
@@ -116,6 +123,10 @@
 	border: 1px solid #dddddd;
 	text-align: center;
 	vertical-align: middle;
+}
+#table tr:hover td{
+background-color: lightgray;
+cursor:pointer;
 }
 
 /* Нечетные строки */

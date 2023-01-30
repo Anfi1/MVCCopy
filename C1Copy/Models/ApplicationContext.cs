@@ -12,7 +12,6 @@ public class ApplicationContext : DbContext
 
     public ApplicationContext()
     {
-        
         Database.EnsureCreated();
     }
 
@@ -40,8 +39,8 @@ public class ApplicationContext : DbContext
         );
         
         modelBuilder.Entity<Client>().HasData(
-            new Client{ID = 1,Name = "asd",LegalEntitiesID = 1, OfficesID = 1},
-            new Client{ID = 2,Name = "dsadasd", LegalEntitiesID= 1, OfficesID = 1}
+            new Client{ID = 1,Name = "asd",LegalEntitiesID = 1,},
+            new Client{ID = 2,Name = "dsadasd", LegalEntitiesID= 1, }
         );
         modelBuilder.Entity<LegalEntities>().HasData(
             new LegalEntities{LegalEntitiesID = 1,Name = "asd"},

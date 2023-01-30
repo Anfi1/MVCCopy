@@ -77,14 +77,14 @@ namespace C1Copy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register(string Email, string Password)
         {
             if (ModelState.IsValid)
             {
-                Account user = await db.Accounts.FirstOrDefaultAsync(u => u.Email == model.Email);
+                Account user = await db.Accounts.FirstOrDefaultAsync(u => u.Email == Email);
                 if (user == null)
                 {
-                    var acc = new Account { Email = model.Email, Password = model.Password, RoleID = 2};
+                    var acc = new Account { Email = Email, Password = Password, RoleID = 2};
                     // добавляем пользователя в бд
                     db.Accounts.Add(acc);
                     await db.SaveChangesAsync();
@@ -96,7 +96,7 @@ namespace C1Copy.Controllers
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
-            return View(model);
+            return View();
         }
  
         private async Task Authenticate(Account user)
@@ -104,13 +104,13 @@ namespace C1Copy.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
             };
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
- 
+        
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

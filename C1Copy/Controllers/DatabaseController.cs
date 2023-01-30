@@ -56,7 +56,7 @@ public class DatabaseController : Controller
             if (id == null || (user = await db.Clients.FirstOrDefaultAsync(p=>p.ID==id)) == null)
                 return NotFound();
             user.LegalEntitie = await db.LegalEntities.FirstOrDefaultAsync(p => p.LegalEntitiesID == user.LegalEntitiesID);
-            user.Offices =  db.Offices.Where(p => p.ClientID == user.OfficesID).ToList();
+            user.Offices =  db.Offices.Where(p => p.ClientID == user.ID).ToList();
             return View(user);
 
         }
@@ -65,9 +65,11 @@ public class DatabaseController : Controller
             Client user = new Client();
             if (id == null || (user = await db.Clients.FirstOrDefaultAsync(p=>p.ID==id)) == null)
                 return NotFound();
+            user.Offices = db.Offices.Where(p => p.ClientID == user.ID).ToList();
             ClientModel client = new ClientModel();
             client.Client = user;
             client.LegalEntitiesList = await db.LegalEntities.ToListAsync();
+            client.Client.LegalEntitie = client.LegalEntitiesList.FirstOrDefault(e => e.LegalEntitiesID == client.Client.LegalEntitiesID);
             return View(client);
         }
         [HttpGet]
@@ -83,14 +85,23 @@ public class DatabaseController : Controller
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id, string action)
+        public async Task<IActionResult> Delete(int? id, string action, int? ClientID)
         {
-            if (id == null) return NotFound();
             if (action == "Back")
             {
                 return RedirectToAction("Index", "Database");
             }
-            Client user = await db.Clients.FirstOrDefaultAsync(p => p.ID == id);
+
+            Client user;
+            if (ClientID == null)
+            {
+                user = await db.Clients.FirstOrDefaultAsync(p => p.ID == id);
+            }
+            else
+            {
+                user = await db.Clients.FirstOrDefaultAsync(p => p.ID == ClientID);
+            }
+
             if (user != null)
             {
                 db.Clients.Remove(user);
@@ -99,6 +110,7 @@ public class DatabaseController : Controller
             }
             return NotFound();
         }
+        
         [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(string action, string Name, int ClientID, int? LegalID2)
@@ -107,7 +119,7 @@ public class DatabaseController : Controller
             {
                 return RedirectToAction("Index", "Database");
             }
-            Client user1 = new Client { ID = ClientID, Name = Name, LegalEntitiesID = LegalID2, OfficesID = 1};
+            Client user1 = new Client { ID = ClientID, Name = Name, LegalEntitiesID = LegalID2};
 
             if (LegalID2 == null)
             {
@@ -118,6 +130,16 @@ public class DatabaseController : Controller
             await db.SaveChangesAsync();
             return RedirectToAction("Index", "Database");
         }
+
+        [HttpPost]
+        public async Task AddAdres(string adres, int ClientID)
+        {
+            int i = ClientID;
+            Office of = new Office{ClientID = i, Adress = adres};
+            db.Offices.Add(of);
+            await db.SaveChangesAsync();
+        }
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
