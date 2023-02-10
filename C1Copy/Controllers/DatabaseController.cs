@@ -32,7 +32,6 @@ public class DatabaseController : Controller
         {
             Client client1 = new Client();
             client1.Name = Name;
-            client1.LegalEntitiesID = 1;
             db.Clients.Add(client1);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -55,7 +54,7 @@ public class DatabaseController : Controller
             Client user = new Client();
             if (id == null || (user = await db.Clients.FirstOrDefaultAsync(p=>p.ID==id)) == null)
                 return NotFound();
-            user.LegalEntitie = await db.LegalEntities.FirstOrDefaultAsync(p => p.LegalEntitiesID == user.LegalEntitiesID);
+            user.LegalEntitie = db.LegalEntities.Where(p => p.ID == user.ID).ToList();
             user.Offices =  db.Offices.Where(p => p.ClientID == user.ID).ToList();
             return View(user);
 
@@ -66,10 +65,16 @@ public class DatabaseController : Controller
             if (id == null || (user = await db.Clients.FirstOrDefaultAsync(p=>p.ID==id)) == null)
                 return NotFound();
             user.Offices = db.Offices.Where(p => p.ClientID == user.ID).ToList();
+            List<Worker> workers = db.Workers.ToList();
+            foreach (var worker in workers)
+            {
+                worker.teches = db.Teches.Where(e=>e.WorkerID== worker.ID).ToList();
+            }
+            user.Workers = workers;
+            user.LegalEntitie = db.LegalEntities.Where(e => e.ID == user.ID).ToList();
             ClientModel client = new ClientModel();
             client.Client = user;
             client.LegalEntitiesList = await db.LegalEntities.ToListAsync();
-            client.Client.LegalEntitie = client.LegalEntitiesList.FirstOrDefault(e => e.LegalEntitiesID == client.Client.LegalEntitiesID);
             return View(client);
         }
         [HttpGet]
@@ -113,13 +118,13 @@ public class DatabaseController : Controller
         
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> Edit(string action, string Name, int ClientID, int? LegalID2)
+        public async Task<IActionResult> EditClient(string action, string Name, int ClientID, int? LegalID2)
         {
             if (action == "Back")
             {
                 return RedirectToAction("Index", "Database");
             }
-            Client user1 = new Client { ID = ClientID, Name = Name, LegalEntitiesID = LegalID2};
+            Client user1 = new Client { ID = ClientID, Name = Name};
 
             if (LegalID2 == null)
             {
@@ -130,13 +135,32 @@ public class DatabaseController : Controller
             await db.SaveChangesAsync();
             return RedirectToAction("Index", "Database");
         }
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> EditClientName(string Name, int ClientID)
+        {
+            Client user1 = await db.Clients.FirstOrDefaultAsync(c => c.ID == ClientID);
+
+            user1.Name = Name;
+
+            db.Clients.Update(user1);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index", "Database");
+        }
 
         [HttpPost]
-        public async Task AddAdres(string adres, int ClientID)
+        public async Task AddAddress(string adres, int ClientID)
         {
             int i = ClientID;
             Office of = new Office{ClientID = i, Adress = adres};
             db.Offices.Add(of);
+            await db.SaveChangesAsync();
+        }
+        [HttpDelete]
+        public async Task DeleteAddress(int officeID)
+        {
+            Office of = db.Offices.FirstOrDefault(e => e.ID == officeID) ?? throw new KeyNotFoundException();
+            db.Offices.Remove(of);
             await db.SaveChangesAsync();
         }
         

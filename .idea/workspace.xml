@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9e1abfc7-9c3c-4c0b-a499-1d45d2961b98" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/C1Copy/wwwroot/js/TableManagement.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/C1Copy/wwwroot/js/searchTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Controllers/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Controllers/AccountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Controllers/DatabaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Controllers/DatabaseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Models/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Models/ApplicationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Models/Clients.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Models/Clients.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Models/RegisterModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Models/RegisterModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Views/Account/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Views/Account/Register.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Views/Database/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Views/Database/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Views/Database/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Views/Database/Edit.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Views/Database/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Views/Database/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C1Copy/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/C1Copy/Views/Shared/_Layout.cshtml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2L3BVdXUpPV96tKAtqPmWfzjrDR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e1abfc7-9c3c-4c0b-a499-1d45d2961b98" name="Changes" comment="" />
+      <created>1675089911687</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675089911687</updated>
+      <workItem from="1675089915027" duration="50000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

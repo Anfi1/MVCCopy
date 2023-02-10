@@ -16,8 +16,11 @@
             <dd>@Model.Name</dd>
 
             <dt>Юр Лицо</dt>
-            <dd>@Model.LegalEntitie.Name</dd>
-            
+            @foreach (var item in Model.LegalEntitie)
+                        {
+                            <dd>@item.Name</dd>
+                        }
+
             <dt>Адрес(-a) Офиса</dt>
             @foreach (var item in Model.Offices)
             {

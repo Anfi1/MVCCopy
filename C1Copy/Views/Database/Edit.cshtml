@@ -3,70 +3,121 @@
     ViewBag.Title = "Редактирование пользователя";
 }
 
-@using (Html.BeginForm("edit", "Database", FormMethod.Post))
+@using (Html.BeginForm("editclient", "Database", FormMethod.Post))
 {
     <input type="hidden" value="@Model.Client.ID" name="ClientID"/>
     <div class="form-group">
         <div>
-            <div>
+            <div class="div1">
                 <label>Имя Клиента</label>
                 <input class="form-control" type="text" name="Name" required="required" id="Name" value="@Model.Client.Name"/>
+                <label>ЛПР:</label>
+                <select name="LegalID2" class="form-control" title="text">
+                    
+                </select>
             </div>
-
+        </div>
+        <div class="div3">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button style="color: #212529;" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Юр Лицо(-а)</button>
+                    <button style="color: #212529;" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Сотрудники</button>
                     <button style="color: #212529;" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Адрес(-а)</button>
-                    <button style="color: #212529;" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+                    <button style="color: #212529;" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Юр Лица</button>
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <select name="LegalID2" class="form-control" title="text">
-                        @try
-                        {
-                            <option value="@Model.Client.LegalEntitie" selected="selected">@Model.Client.LegalEntitie</option>
-                            @Model.LegalEntitiesList.Remove(Model.Client.LegalEntitie)
-                            @foreach (var item in @Model.LegalEntitiesList)
+                    <div class="table-responsive">
+                        <table id="EmployeesTable" class="table" data-search="true">
+                            <thead>
+                            <tr>
+                                <th>Имя</th><th>OfficeID</th><th>ServerIP</th><th>Place</th><th>Number</th><th>AnyDesk</th>
+                                <th>AnyDeskPass</th><th>TechIP</th><th>UserAD</th><th>PassAD</th><th>TechIP</th>
+                                <th>UserAD</th><th>PassAD</th><th>TechIP</th><th>FIOEng</th><th>Login</th><th>EmailPass</th>
+                                <th>PhoneLog</th><th>PhonePass</th><th>OutsideNumber</th><th>PhoneIP</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if (@Model.Client.Workers != null)
                             {
-                                <option value="@item.LegalEntitiesID">@item.Name</option>
+                                foreach (var item in @Model.Client.Workers)
+                                {
+                                    <tr>
+                                        <td>@item.FIO</td>
+                                        <td>@item.OfficeID</td>
+                                        <td>@item.ServerIP</td>
+                                    
+                                        <td>@item.OwnPhoneNumber</td>
+                                        <td>@item.AnyDesk</td>
+                                        <td>@item.AnyDeskPass</td>
+                                        @foreach (var tech in @item.teches)
+                                        {
+                                            <td>@tech.Type</td>
+                                        }
+                                        <td>@item.UserAD</td>
+                                        <td>@item.PassAD</td>
+                                        <td>@item.FIOEng</td>
+                                        <td>@item.UserAD</td>
+                                        <td>@item.PassAD</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.EmailPass</td>
+                                        <td>@item.PhoneLog</td>
+                                        <td>@item.PhonePass</td>
+                                        <td>@item.PhoneOutsideNumber</td>
+                                    </tr>
+                                }
                             }
-                        }
-                        catch
-                        {
-                            // ignored
-                        }
-                    </select>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
 
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <input id="search" class="input-group" type="text" onkeyup='searchTable()' placeholder="Type to search">
-                    <table id="addresstable" class="table" >
+                    <table id="addresstable" class="table">
                         <tbody>
-                        @foreach (var item in @Model.Client.Offices)
+                        @if (@Model.Client.Offices != null)
                         {
-                            <tr>
-                                <td>
-                                    <input hidden="hidden" value="@item.OfficeID"/>
-                                    @item.Adress
-                                </td>
-                            </tr>
+                            foreach (var item in @Model.Client.Offices)
+                            {
+                                <tr ondblclick="Test1(this)">
+                                    <td>
+                                        <input hidden="hidden" value="@item.ID"/>
+                                        @item.Adress
+                                    </td>
+                                </tr>
+                            }
                         }
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAdresModal">
+                    <button type="button" class="btn btn-primary" style="float: right" data-bs-toggle="modal" data-bs-target="#AddAddressModal">
                         Добавить адрес
                     </button>
                 </div>
 
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <table id="EmployeesTable" class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Имя</th><th>Почта</th><th>Директор</th><th>Бухгалтер</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach (var legal in Model.Client.LegalEntitie)
+                                            {
+                                                <tr>
+                                                    <th>@legal.Name</th><th>@legal.Email</th>
+                                                </tr>
+                                            }
+                                            </tbody>
+                    </table>
+                </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="Toasty()">Show live toast</button>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="div2">
         <div>
             <input type="submit" value="Сохранить" class="btn btn-default "/>
             <button name="action" value="Back" class="btn btn-default">Назад</button>
@@ -79,45 +130,40 @@
      style="position: absolute ; bottom: 100px; right: 20px; ">
     <div class="toast-header">
         <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Bootstrap</strong>
+        <strong class="me-auto">C1Copy</strong>
         <small class="text-muted">Недавно</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">
-        Hello, world! This is a toast message.
+        Изменения сохранены
     </div>
 </div>
 
-<div class="modal fade" id="DeleteAddressModal" tabindex="0" aria-labelledby="DeleteAddressModalLabel" aria-hidden="true">
+<div id="DeleteAddressModal" class="modal fade" tabindex="0" aria-labelledby="DeleteAddressModalLabel" aria-hidden="true" value="1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Удалить Адрес</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
-            @using (Html.BeginForm("AddAdres", "Database", FormMethod.Post))
-            {
-                <input type="hidden" value="@Model.Client.ID" id="ClientID"/>
-                <div class="modal-body">
+            <div class="modal-body">
+                <input id="DeleteID" hidden="hidden" value="5"/>
+                <dd>
+                    Вы уверены что хотите удалить данный адрес
+                </dd>
+            </div>
 
-                    <div>
-                        <label>Введите Адрес</label>
-                        <input type="text" name="adres" id="adres"/>
-                    </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" onclick="DeleteForm((document).getElementById('DeleteID').value, '/Database/DeleteAddress')" class="btn btn-primary">Удалить</button>
                 </div>
-
-                <div class="modal-footer">
-                    <div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <button type="submit" class="btn btn-primary">Добавить</button>
-                    </div>
-                </div>
-            }
+            </div>
         </div>
     </div>
 </div>
 
-<div id="AddAdresModal" class="modal fade"  tabindex="0" aria-labelledby="AddAdresModalLabel" aria-hidden="true">
+<div id="AddAddressModal" class="modal fade" tabindex="0" aria-labelledby="AddAddressModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -135,8 +181,8 @@
 
             <div class="modal-footer">
                 <div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="button" onclick="SubForm()" class="btn btn-primary">Добавить</button>
+                    <button type="button" class="btn btn-secondary" onclick="Test()">Закрыть</button>
+                    <button type="button" onclick="SubForm(@Model.Client.ID, '/Database/AddAddress');Test()" class="btn btn-primary">Добавить</button>
                 </div>
             </div>
         </div>
@@ -171,50 +217,52 @@
         </div>
     </div>
 </form>
+<script src="~/js/Toast.js?ver=1.1"></script>
+<script src="~/js/searchTable.js?ver=1.1"></script>
+<script src="~/js/SubForm.js?ver=1.1"></script>
+<script src="~/js/DeleteForm.js?ver=1.1"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-        var option =
-        {
-            animation: true,
-            delay: 3000   
-        }
-        function Toasty()
-        {
-            var ToastHTMLElement = document.getElementById("SaveToast");    
-            
-            var toastElement = new bootstrap.Toast(ToastHTMLElement, option);
-            
-            toastElement.show();    
-        
-        }
+
 </script>
+
 <script>
-        var rows = document.getElementById("addresstable").getElementsByTagName('tr');
-        for (i = 0; i < rows.length; i++) {
-            rows[i].addEventListener('click', function(){
-                alert();
-            })
-        }
-</script>
-<script>
-function SubForm (){
-    var Address = document.getElementById('address').value;
-    $.ajax({
-        url: '/Database/AddAdres',
-        type: 'post',
-        data: {adres: Address, ClientID: '@Model.Client.ID'},
-        success: function(){
-            var Address = document.getElementById('address').value;
-                var tableRef = document.getElementById("addresstable").getElementsByTagName('tbody')[0];
-                var myHtmlContent = "<td><input hidden value='' />" + Address + "</td>";
-                
-                var newRow = tableRef.insertRow(tableRef.rows.length);
-                newRow.innerHTML = myHtmlContent;
-        }
-    });
+function Test(){
+var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('AddAddressModal'))
+modal.toggle();}
+function Test1(elm){
+    var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('DeleteAddressModal'))
+    document.getElementById('DeleteAddressModal').getElementsByTagName('input')[0].value = elm.getElementsByTagName('input')[0].value;
+    modal.toggle();
+    alert(elm.getElementsByTagName('input')[0].value);
+    alert(document.getElementById('DeleteAddressModal').getElementsByTagName('input')[0].value);
+    
+    
 }
 </script>
-<script src="~/js/searchTable.js"></script>
+<script src="~/js/searchTable.js?ver=1.1"></script>
 <style>
+    div.div1 {
+        float: left;
+        height: 400px;
+        margin-right: 10px;
+        width: 200px;
+        //background-color: ;
+    }
+    div.div2 {
+        clear: left;
+        float: left;
+        height: 15px;
+        width: 200px;
+        margin-top: 10px;
+        //background-color: ;
+    }    
+    div.div3 {
+        height: 425px;
+        overflow: hidden;
+        //background-color: ;
+    }
+
 .table {
 	border: 1px solid #dddddd;
 	border-top: 0 #dddddd;
@@ -248,5 +296,11 @@ cursor:pointer;
 .table tbody tr:nth-child(2n){
 	background: #F7F7F7;
 }
-.otsup{position: relative;margin-bottom: 5px; bottom: -10px}
+.select,
+  #locale {
+    width: 100%;
+  }
+  .like {
+    margin-right: 10px;
+  }
 </style>
